@@ -1,4 +1,4 @@
-# Challenge 1 — Messy Transactions Normalizer & Validator
+# Challenge 1 — Messy Transactions 
 
 ## 1. Project Purpose
 
