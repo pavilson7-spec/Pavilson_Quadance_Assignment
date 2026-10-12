@@ -1,0 +1,86 @@
+{
+  "summary": {
+    "input_rows": 73,
+    "valid_rows": 59,
+    "invalid_rows": 14,
+    "reconciliation_check": "input_rows == valid_rows + invalid_rows (73 == 59 + 14)"
+  },
+  "input_rows": 73,
+  "valid_rows": 59,
+  "invalid_rows": 14,
+  "duplicate_transaction_id_counts": {
+    "unique_repeated_ids": 2,
+    "affected_rows": 4,
+    "repeated_occurrences": 2,
+    "details": {
+      "TX0008": {
+        "count": 2,
+        "row_indices": [
+          8,
+          65
+        ]
+      },
+      "TX0015": {
+        "count": 2,
+        "row_indices": [
+          15,
+          66
+        ]
+      }
+    }
+  },
+  "potential_duplicate_group_counts": {
+    "duplicate_groups": 1,
+    "affected_rows": 2,
+    "repeated_occurrences": 1,
+    "matching_criteria": [
+      "normalized_customer_name",
+      "normalized_transaction_date",
+      "normalized_amount",
+      "order_id",
+      "normalized_status"
+    ],
+    "groups": [
+      {
+        "group_id": 1,
+        "customer_name": "Meera Nair",
+        "transaction_date": "2026-09-03",
+        "amount": "1200.00",
+        "order_id": "ORD081",
+        "status": "paid",
+        "first_occurrence_transaction_id": "TX0070",
+        "duplicate_transaction_ids": [
+          "TX0071"
+        ],
+        "total_rows_in_group": 2
+      }
+    ]
+  },
+  "validation_issues_summary": {
+    "INVALID_AMOUNT": 4,
+    "INVALID_TRANSACTION_DATE": 4,
+    "MISSING_AMOUNT": 2,
+    "MISSING_CUSTOMER_NAME": 1,
+    "NEGATIVE_AMOUNT": 2,
+    "ZERO_AMOUNT": 1
+  },
+  "total_revenue": "85206.00",
+  "revenue_policy": "Deduplicated valid paid transactions: sums normalized amounts for all valid records (is_valid == true) with normalized status 'paid', retaining the primary (first observed) transaction and strictly excluding duplicate occurrences (subsequent potential duplicates and subsequent repeated transaction ID collisions) to prevent double-counting.",
+  "financial_breakdown": {
+    "gross_valid_paid_amount": "88601.00",
+    "gross_valid_paid_count": 38,
+    "deductions": {
+      "potential_duplicate_occurrences_amount": "1200.00",
+      "potential_duplicate_occurrences_count": 1,
+      "repeated_id_collision_occurrences_amount": "2195.00",
+      "repeated_id_collision_occurrences_count": 2,
+      "unique_combined_duplicate_exclusions_amount": "3395.00",
+      "unique_combined_duplicate_exclusions_count": 3,
+      "total_excluded_duplicate_amount": "3395.00",
+      "total_excluded_duplicate_count": 3
+    },
+    "net_deduplicated_revenue": "85206.00",
+    "net_deduplicated_count": 35,
+    "reconciliation_formula": "gross_valid_paid_amount (88601.00) - unique_combined_duplicate_exclusions_amount (3395.00) == net_deduplicated_revenue (85206.00)"
+  }
+}
